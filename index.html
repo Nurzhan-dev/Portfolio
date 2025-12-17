@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurzhan-dev Portfolio</title>
+    
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Подключение иконок Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Анимация формы — используем scale для легкости */
+        @keyframes liquid-morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+    
+        /* Оптимизированное движение: только transform */
+        @keyframes light-move {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-20%, -30%) rotate(180deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    
+        /* Вместо анимации градиента (тяжело), анимируем opacity слоев или просто цвет */
+        .flame-animation {
+            will-change: transform; /* Подсказка браузеру вынести на GPU */
+            animation: 
+                light-move 20s infinite linear, 
+                liquid-morph 10s infinite ease-in-out alternate;
+            background: linear-gradient(45deg, #3b82f6, #a78bfa, #22d3ee);
+        }
+    
+        /* Хитрость: выносим blur на отдельный слой, который НЕ анимируется */
+        .blur-layer {
+            position: fixed;
+            inset: 0;
+            backdrop-filter: blur(80px); /* Блюрим то, что ПОД ним */
+            z-index: 5;
+            pointer-events: none;
+        }
+    
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .no-scroll { overflow: hidden; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 font-sans selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
+
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="flame-animation absolute top-1/2 left-1/2 w-[70vw] h-[70vh] bg-blue-600 opacity-40"></div>
+    </div>
+    <div class="blur-layer"></div>
+
+    <!-- Навигация -->
+    <nav class="fixed w-full bg-slate-900/90 backdrop-blur-sm border-b border-slate-800 z-40 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Nurzhan-dev Portfolio
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-blue-400 transition-colors px-3 py-2">Главная</a>
+                        <a href="#projects" class="hover:text-blue-400 transition-colors px-3 py-2">Проекты</a>
+                        <a href="#skills" class="hover:text-blue-400 transition-colors px-3 py-2">Навыки</a>
+                        <a href="#contact" class="hover:text-blue-400 transition-colors px-3 py-2">Контакты</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="p-2 text-slate-400 hover:text-white focus:outline-none">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Мобильное меню -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-b border-slate-700 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Главная</a>
+                <a href="#projects" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Проекты</a>
+                <a href="#skills" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Навыки</a>
+                <a href="#contact" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative z-10 pt-32 pb-20 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                Создаю цифровые решения <br />
+                <span class="text-blue-500">для бизнеса и государства</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+                Full-stack разработчик, специализирующийся на сложных CRM системах, 
+                мобильных приложениях и автоматизации бизнес-процессов.
+            </p>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition-all hover:scale-105 shadow-lg shadow-blue-500/30">
+                    Смотреть проекты
+                </a>
+                <a href="#contact" class="border border-slate-600 hover:border-slate-400 hover:bg-slate-800 px-8 py-3 rounded-full font-medium transition-all">
+                    Связаться
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="relative z-10 py-20 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center mb-12">
+                <div class="h-px bg-slate-700 flex-grow"></div>
+                <h2 class="text-3xl font-bold px-6">Избранные Проекты</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
+                <!-- Карточки проектов будут сгенерированы JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="relative z-10 py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Технический стек</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Карточка Frontend -->
+                <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
+                    <div class="flex items-center gap-3 mb-4 text-blue-400">
+                        <i data-lucide="code-2"></i>
+                        <h3 class="text-xl font-bold text-white">Frontend</h3>
+                    </div>
+                    <ul class="space-y-2 text-slate-400">
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>React</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Tailwind CSS</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>TypeScript</li>
+                    </ul>
+                </div>
+                <!-- Карточка Mobile -->
+                <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
+                    <div class="flex items-center gap-3 mb-4 text-blue-400">
+                        <i data-lucide="smartphone"></i>
+                        <h3 class="text-xl font-bold text-white">Mobile</h3>
+                    </div>
+                    <ul class="space-y-2 text-slate-400">
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Flutter</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Dart</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Android SDK</li>
+                    </ul>
+                </div>
+                <!-- Карточка Backend -->
+                <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
+                    <div class="flex items-center gap-3 mb-4 text-blue-400">
+                        <i data-lucide="database"></i>
+                        <h3 class="text-xl font-bold text-white">Backend</h3>
+                    </div>
+                    <ul class="space-y-2 text-slate-400">
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Node.js</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>PostgreSQL</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Firebase</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>SupaBase</li>
+                    </ul>
+                </div>
+                <!-- Карточка DevOps -->
+                <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
+                    <div class="flex items-center gap-3 mb-4 text-blue-400">
+                        <i data-lucide="globe"></i>
+                        <h3 class="text-xl font-bold text-white">DevOps</h3>
+                    </div>
+                    <ul class="space-y-2 text-slate-400">
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>AWS</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>CI/CD</li>
+                        <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Git</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative z-10 py-20 bg-gradient-to-b from-slate-900 to-slate-800">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Готовы обсудить проект?</h2>
+            <p class="text-slate-400 mb-10 max-w-xl mx-auto">
+                Для оперативной связи, пожалуйста, напишите мне в WhatsApp.
+            </p>
+            
+            <div class="flex justify-center gap-6 mb-12">
+                <a 
+                  href="https://wa.me/77475414197" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="p-4 bg-slate-800 rounded-full hover:bg-green-600 transition-all text-slate-300 group shadow-lg hover:shadow-green-500/20"
+                  aria-label="WhatsApp"
+                  title="Написать в WhatsApp"
+                >
+                    <i data-lucide="message-square" class="w-8 h-8 text-green-400 group-hover:text-white transition-colors"></i>
+                </a>
+            </div>
+            
+            <div class="text-slate-500 text-sm mt-4">
+                © 2025 Nurzhan-dev. Все права защищены.
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Template (Hidden by default) -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onclick="closeModal()">
+        <div class="bg-slate-900 w-full max-w-2xl rounded-2xl border border-slate-700 shadow-2xl overflow-hidden animate-[fade-in_0.2s_ease-out] relative" onclick="event.stopPropagation()">
+            
+            <!-- Header -->
+            <div class="relative h-48 bg-slate-800 flex items-center justify-center border-b border-slate-700">
+                <button onclick="closeModal()" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-colors z-10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="scale-150 opacity-90 text-blue-400" id="modal-icon">
+                    <!-- Icon inserted via JS -->
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-8 max-h-[60vh] overflow-y-auto">
+                <div id="modal-category" class="text-blue-400 text-sm font-bold uppercase tracking-wide mb-2"></div>
+                <h3 id="modal-title" class="text-3xl font-bold mb-4"></h3>
+                <p id="modal-desc" class="text-slate-300 mb-6 leading-relaxed"></p>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3 text-white">Ключевые возможности:</h4>
+                    <ul id="modal-features" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-400 text-sm">
+                        <!-- Features inserted via JS -->
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-3 text-white">Технологии:</h4>
+                    <div id="modal-tech" class="flex flex-wrap gap-2">
+                        <!-- Tech badges inserted via JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-6 border-t border-slate-800 bg-slate-900/50 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                    Закрыть
+                </button>
+                <a id="modal-link" href="#" target="_blank" class="hidden px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-1">
+                    Перейти на сайт <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
+                </a>
+                <button id="modal-link-placeholder" class="hidden px-6 py-2 bg-slate-700 text-slate-400 rounded-lg font-medium cursor-default">
+                    Подробнее (Ссылка скоро будет)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Data and Logic -->
+    <script>
+        // Данные проектов
+        const projects = [
+            {
+                id: 1,
+                title: "CRM система для гос. службы",
+                category: "GovTech / Enterprise Management",
+                shortDesc: "Система внутреннего контроля, управления поручениями, аудита и отслеживания эффективности персонала.",
+                fullDesc: "Комплексная система управления эффективностью и задачами, разработанная для внутреннего контроля в гос. службе. Обеспечивает строгий аудит выполнения поручений, автоматизированное отслеживание KPI сотрудников и прозрачный внутренний документооборот между отделами и руководством.",
+                iconName: "building-2",
+                iconColor: "text-blue-400",
+                tech: ["React", "TypeScript", "Firebase"],
+                features: [
+                    "Ролевая модель доступа (RBAC)",
+                    "Модуль контроля поручений и сроков",
+                    "Инструменты для аудита и отслеживания эффективности",
+                    "Генерация внутренней отчетности (KPI, выполнение задач)"
+                ],
+                link: "https://crm-firebase.onrender.com/"
+            },
+            {
+                id: 2,
+                title: "Система учета подписки газеты «Қарақия»",
+                category: "Media / Subscription & Circulation Mgmt",
+                shortDesc: "Управление подписками, онлайн-регистрация читателей и точный учет тиража газеты.",
+                fullDesc: "Специализированная система, автоматизирующая процесс подписки на газету «Қарақия». Включает модуль для регистрации новых абонентов и импорт из списка, финансовый учет поступлений от подписки и детальный контроль над тиражом и распространением печатных изданий.",
+                iconName: "newspaper",
+                iconColor: "text-emerald-400",
+                tech: ["React", "Render", "SupaBase", "GitPages"],
+                features: [
+                    "Портал для регистрации и управления подпиской",
+                    "Автоматический расчет сумм подписок и генерация квитанции",
+                    "Детальный учет тиража по точкам распространения",
+                    "Отслеживание статуса оплаты",
+                ],
+                link: "https://karakiya-subscriptions.onrender.com/"
+            },
+            {
+                id: 3,
+                title: "Сканер Price & List",
+                category: "Mobile App / Retail",
+                shortDesc: "Мобильное приложение для сканирования штрих-кодов и управления прайс-листами.",
+                fullDesc: "Удобный инструмент для малого бизнеса и покупателей. Приложение позволяет мгновенно получать информацию о товаре по штрих-коду, формировать списки покупок.",
+                iconName: "scan-line",
+                iconColor: "text-purple-400",
+                tech: ["Flutter", "mobile scanner", "Dropbox", "sqflite"],
+                features: [
+                    "Быстрое сканирование штрих-кодов",
+                    "Синхронизация с облаком",
+                    "Работа без интернета",
+                    "Android"
+                ],
+                link: "https://nurzhan-dev.github.io/price-list-landing/"
+            },
+            {
+                id: 4,
+                title: "Приложение для бизнеса BIM",
+                category: "Mobile App / Inventory",
+                shortDesc: "Business Inventory Manager (BIM): нативный Android-помощник для автономного учета запасов, продаж и поставщиков.",
+                fullDesc: "Business Inventory Manager (BIM) — высокопроизводительное нативное приложение для Android, разработанное для малых и средних предпринимателей. Обеспечивает автономный учет товарных запасов, управление транзакциями, сканирование штрих-кодов и синхронизацию данных с облаком. Разработка сфокусирована на скорости и надежности работы без постоянного подключения к интернету.",
+                iconName: "package",
+                iconColor: "text-orange-400",
+                tech: ["Flutter", "Dart", "sqflite", "Firebase"],
+                features: [
+                    "Учет товаров",
+                    "Работа в режиме оффлайн (sqflite)",
+                    "Учет бизнеса",
+                    "Облачная синхронизация данных"
+                ],
+                link: "#"
+            }
+        ];
+
+        // Инициализация карточек проектов при загрузке
+        const projectsGrid = document.getElementById('projects-grid');
+        
+        projects.forEach(project => {
+            const card = document.createElement('div');
+            card.className = "group bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/20 transition-all cursor-pointer relative overflow-hidden";
+            card.onclick = () => openModal(project.id);
+            
+            // Generate Tech Badges for Grid
+            const techBadges = project.tech.slice(0, 3).map(t => 
+                `<span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">${t}</span>`
+            ).join('');
+            
+            const extraCount = project.tech.length > 3 ? 
+                `<span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">+${project.tech.length - 3}</span>` : '';
+
+            card.innerHTML = `
+                <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i data-lucide="external-link" class="text-blue-400"></i>
+                </div>
+                
+                <div class="mb-6 inline-block p-4 rounded-xl bg-slate-800 group-hover:bg-slate-700 transition-colors">
+                    <i data-lucide="${project.iconName}" class="w-12 h-12 ${project.iconColor}"></i>
+                </div>
+                
+                <div class="mb-2 text-blue-400 text-sm font-semibold tracking-wider uppercase">
+                    ${project.category}
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-300 transition-colors">
+                    ${project.title}
+                </h3>
+                
+                <p class="text-slate-400 mb-6 line-clamp-2">
+                    ${project.shortDesc}
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                    ${techBadges}
+                    ${extraCount}
+                </div>
+            `;
+            projectsGrid.appendChild(card);
+        });
+
+       // --- ЕДИНЫЙ БЛОК ЛОГИКИ (БЕЗ ОШИБОК) ---
+
+        // 1. Кэшируем элементы
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        const modal = document.getElementById('project-modal');
+        const body = document.body;
+
+        const modalContent = {
+            title: document.getElementById('modal-title'),
+            category: document.getElementById('modal-category'),
+            desc: document.getElementById('modal-desc'),
+            icon: document.getElementById('modal-icon'),
+            features: document.getElementById('modal-features'),
+            tech: document.getElementById('modal-tech'),
+            link: document.getElementById('modal-link'),
+            placeholder: document.getElementById('modal-link-placeholder')
+        };
+
+        // 2. Логика мобильного меню
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.contains('hidden');
+            const iconName = isHidden ? 'menu' : 'x';
+            menuBtn.innerHTML = `<i data-lucide="${iconName}"></i>`;
+            lucide.createIcons({ root: menuBtn }); // Обновляем только иконку кнопки
+        }
+        
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // 3. Логика модального окна
+        function openModal(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+
+            modalContent.title.textContent = project.title;
+            modalContent.category.textContent = project.category;
+            modalContent.desc.textContent = project.fullDesc;
+            
+            modalContent.icon.className = `scale-150 opacity-90 ${project.iconColor}`;
+            modalContent.icon.innerHTML = `<i data-lucide="${project.iconName}" class="w-12 h-12"></i>`;
+
+            modalContent.features.innerHTML = project.features.map(f => 
+                `<li class="flex items-start"><div class="mt-1.5 mr-2 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></div>${f}</li>`
+            ).join('');
+
+            modalContent.tech.innerHTML = project.tech.map(t => 
+                `<span class="px-3 py-1 bg-slate-800 text-blue-300 rounded-md text-sm border border-slate-700">${t}</span>`
+            ).join('');
+
+            if (project.link && project.link !== '#') {
+                modalContent.link.href = project.link;
+                modalContent.link.classList.remove('hidden');
+                modalContent.link.classList.add('flex');
+                modalContent.placeholder.classList.add('hidden');
+            } else {
+                modalContent.link.classList.add('hidden');
+                modalContent.link.classList.remove('flex');
+                modalContent.placeholder.classList.remove('hidden');
+            }
+
+            modal.classList.remove('hidden');
+            body.classList.add('no-scroll');
+            
+            // Оптимизированное обновление иконок
+            lucide.createIcons({ root: modal });
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            body.classList.remove('no-scroll');
+        }
+
+        // 4. Инициализация при загрузке
+        lucide.createIcons();
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+    </script>
+</body>
+</html>
