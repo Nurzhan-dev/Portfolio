@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nurzhan-dev Portfolio</title>
+    <title>Mussabayev Nurzhan Portfolio</title>
     
-    <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Подключение иконок Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Анимация формы — используем scale для легкости */
         @keyframes liquid-morph {
             0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
             50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
     
-        /* Оптимизированное движение: только transform */
         @keyframes light-move {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             50% { transform: translate(-20%, -30%) rotate(180deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
     
-        /* Вместо анимации градиента (тяжело), анимируем opacity слоев или просто цвет */
         .flame-animation {
-            will-change: transform; /* Подсказка браузеру вынести на GPU */
+            will-change: transform;
             animation: 
                 light-move 20s infinite linear, 
                 liquid-morph 10s infinite ease-in-out alternate;
             background: linear-gradient(45deg, #3b82f6, #a78bfa, #22d3ee);
         }
     
-        /* Хитрость: выносим blur на отдельный слой, который НЕ анимируется */
         .blur-layer {
             position: fixed;
             inset: 0;
-            backdrop-filter: blur(80px); /* Блюрим то, что ПОД ним */
+            backdrop-filter: blur(80px);
             z-index: 5;
             pointer-events: none;
         }
@@ -57,16 +50,16 @@
     </div>
     <div class="blur-layer"></div>
 
-    <!-- Навигация -->
     <nav class="fixed w-full bg-slate-900/90 backdrop-blur-sm border-b border-slate-800 z-40 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                    Nurzhan-dev Portfolio
+                    Mussabayev Nurzhan Portfolio
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#home" class="hover:text-blue-400 transition-colors px-3 py-2">Главная</a>
+                        <a href="#about" class="hover:text-blue-400 transition-colors px-3 py-2">Обо мне</a>
                         <a href="#projects" class="hover:text-blue-400 transition-colors px-3 py-2">Проекты</a>
                         <a href="#skills" class="hover:text-blue-400 transition-colors px-3 py-2">Навыки</a>
                         <a href="#contact" class="hover:text-blue-400 transition-colors px-3 py-2">Контакты</a>
@@ -79,10 +72,11 @@
                 </div>
             </div>
         </div>
-        <!-- Мобильное меню -->
+    
         <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-b border-slate-700 absolute w-full">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Главная</a>
+                <a href="#about" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Обо мне</a>
                 <a href="#projects" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Проекты</a>
                 <a href="#skills" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Навыки</a>
                 <a href="#contact" class="block px-3 py-2 hover:bg-slate-700 rounded-md" onclick="toggleMenu()">Контакты</a>
@@ -90,7 +84,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="relative z-10 pt-32 pb-20 px-4">
         <div class="max-w-6xl mx-auto text-center">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
@@ -105,6 +98,10 @@
                 <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition-all hover:scale-105 shadow-lg shadow-blue-500/30">
                     Смотреть проекты
                 </a>
+                <a href="Резюме.pdf" download="Резюме.pdf" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 px-8 py-3 rounded-full font-medium transition-all hover:scale-105 flex items-center gap-2">
+                    <i data-lucide="download" class="w-5 h-5 text-blue-400"></i>
+                    Скачать резюме
+                </a>
                 <a href="#contact" class="border border-slate-600 hover:border-slate-400 hover:bg-slate-800 px-8 py-3 rounded-full font-medium transition-all">
                     Связаться
                 </a>
@@ -112,7 +109,62 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <section id="about" class="relative z-10 py-20 bg-slate-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-bold text-white">Обо мне</h2>
+                    <p class="text-slate-400 leading-relaxed">
+                        Я — Full-stack разработчик с техническим образованием и 7-летним опытом работы в инфраструктурных организациях. Мой бэкграунд позволяет мне глубоко понимать бизнес-логику и создавать отказоустойчивые системы.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="check-circle-2" class="text-blue-500 w-5 h-5"></i>
+                            <span>Ориентирован на результат: ожидаемая оплата от 230 000 тенге.</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="graduation-cap" class="text-blue-500 w-5 h-5"></i>
+                            <span>Актауский технологический колледж (2013 – 2017).</span>
+                        </li>
+                    </ul>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                            <span class="block text-2xl font-bold text-blue-500">7+</span>
+                            <span class="text-xs text-slate-500 uppercase">Лет стажа</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                            <span class="block text-2xl font-bold text-blue-500">28</span>
+                            <span class="text-xs text-slate-500 uppercase">Лет</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700">
+                    <h3 class="text-xl font-bold mb-6 text-white text-center">Профессиональный профиль</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-sm font-semibold text-blue-400 uppercase mb-3">Софт-скиллы</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-slate-700 rounded-full text-xs text-slate-200">Аналитическое мышление</span>
+                                <span class="px-3 py-1 bg-slate-700 rounded-full text-xs text-slate-200">Стрессоустойчивость </span>
+                                <span class="px-3 py-1 bg-slate-700 rounded-full text-xs text-slate-200">Самостоятельность </span>
+                                <span class="px-3 py-1 bg-slate-700 rounded-full text-xs text-slate-200">Решение сложных задач</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-blue-400 uppercase mb-3">Техническая база</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-blue-900/30 border border-blue-500/30 rounded-full text-xs text-blue-200">Администрирование ПО</span>
+                                <span class="px-3 py-1 bg-blue-900/30 border border-blue-500/30 rounded-full text-xs text-blue-200">Работа с БД </span>
+                                <span class="px-3 py-1 bg-blue-900/30 border border-blue-500/30 rounded-full text-xs text-blue-200">Настройка сетей</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="projects" class="relative z-10 py-20 bg-slate-800/50">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex items-center mb-12">
@@ -122,17 +174,14 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
-                <!-- Карточки проектов будут сгенерированы JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills" class="relative z-10 py-20">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-12 text-center">Технический стек</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Карточка Frontend -->
                 <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
                     <div class="flex items-center gap-3 mb-4 text-blue-400">
                         <i data-lucide="code-2"></i>
@@ -144,7 +193,6 @@
                         <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>TypeScript</li>
                     </ul>
                 </div>
-                <!-- Карточка Mobile -->
                 <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
                     <div class="flex items-center gap-3 mb-4 text-blue-400">
                         <i data-lucide="smartphone"></i>
@@ -156,7 +204,7 @@
                         <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>Android SDK</li>
                     </ul>
                 </div>
-                <!-- Карточка Backend -->
+                
                 <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
                     <div class="flex items-center gap-3 mb-4 text-blue-400">
                         <i data-lucide="database"></i>
@@ -169,7 +217,7 @@
                         <li class="flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-blue-500"></i>SupaBase</li>
                     </ul>
                 </div>
-                <!-- Карточка DevOps -->
+                
                 <div class="bg-slate-800/30 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors">
                     <div class="flex items-center gap-3 mb-4 text-blue-400">
                         <i data-lucide="globe"></i>
@@ -185,7 +233,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="relative z-10 py-20 bg-gradient-to-b from-slate-900 to-slate-800">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-6">Готовы обсудить проект?</h2>
@@ -212,21 +259,17 @@
         </div>
     </section>
 
-    <!-- Modal Template (Hidden by default) -->
     <div id="project-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onclick="closeModal()">
         <div class="bg-slate-900 w-full max-w-2xl rounded-2xl border border-slate-700 shadow-2xl overflow-hidden animate-[fade-in_0.2s_ease-out] relative" onclick="event.stopPropagation()">
             
-            <!-- Header -->
             <div class="relative h-48 bg-slate-800 flex items-center justify-center border-b border-slate-700">
                 <button onclick="closeModal()" class="absolute top-4 right-4 p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-colors z-10">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
                 <div class="scale-150 opacity-90 text-blue-400" id="modal-icon">
-                    <!-- Icon inserted via JS -->
                 </div>
             </div>
             
-            <!-- Content -->
             <div class="p-8 max-h-[60vh] overflow-y-auto">
                 <div id="modal-category" class="text-blue-400 text-sm font-bold uppercase tracking-wide mb-2"></div>
                 <h3 id="modal-title" class="text-3xl font-bold mb-4"></h3>
@@ -235,19 +278,16 @@
                 <div class="mb-6">
                     <h4 class="text-lg font-semibold mb-3 text-white">Ключевые возможности:</h4>
                     <ul id="modal-features" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-400 text-sm">
-                        <!-- Features inserted via JS -->
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-lg font-semibold mb-3 text-white">Технологии:</h4>
                     <div id="modal-tech" class="flex flex-wrap gap-2">
-                        <!-- Tech badges inserted via JS -->
                     </div>
                 </div>
             </div>
             
-            <!-- Footer -->
             <div class="p-6 border-t border-slate-800 bg-slate-900/50 flex justify-end gap-3">
                 <button onclick="closeModal()" class="px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
                     Закрыть
@@ -262,9 +302,7 @@
         </div>
     </div>
 
-    <!-- JavaScript Data and Logic -->
     <script>
-        // Данные проектов
         const projects = [
             {
                 id: 1,
@@ -336,7 +374,6 @@
             }
         ];
 
-        // Инициализация карточек проектов при загрузке
         const projectsGrid = document.getElementById('projects-grid');
         
         projects.forEach(project => {
@@ -344,7 +381,6 @@
             card.className = "group bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/20 transition-all cursor-pointer relative overflow-hidden";
             card.onclick = () => openModal(project.id);
             
-            // Generate Tech Badges for Grid
             const techBadges = project.tech.slice(0, 3).map(t => 
                 `<span class="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">${t}</span>`
             ).join('');
@@ -381,9 +417,6 @@
             projectsGrid.appendChild(card);
         });
 
-       // --- ЕДИНЫЙ БЛОК ЛОГИКИ (БЕЗ ОШИБОК) ---
-
-        // 1. Кэшируем элементы
         const mobileMenu = document.getElementById('mobile-menu');
         const menuBtn = document.getElementById('menu-btn');
         const modal = document.getElementById('project-modal');
@@ -400,18 +433,16 @@
             placeholder: document.getElementById('modal-link-placeholder')
         };
 
-        // 2. Логика мобильного меню
         function toggleMenu() {
             mobileMenu.classList.toggle('hidden');
             const isHidden = mobileMenu.classList.contains('hidden');
             const iconName = isHidden ? 'menu' : 'x';
             menuBtn.innerHTML = `<i data-lucide="${iconName}"></i>`;
-            lucide.createIcons({ root: menuBtn }); // Обновляем только иконку кнопки
+            lucide.createIcons({ root: menuBtn }); 
         }
         
         menuBtn.addEventListener('click', toggleMenu);
 
-        // 3. Логика модального окна
         function openModal(id) {
             const project = projects.find(p => p.id === id);
             if (!project) return;
@@ -445,7 +476,6 @@
             modal.classList.remove('hidden');
             body.classList.add('no-scroll');
             
-            // Оптимизированное обновление иконок
             lucide.createIcons({ root: modal });
         }
 
@@ -454,7 +484,6 @@
             body.classList.remove('no-scroll');
         }
 
-        // 4. Инициализация при загрузке
         lucide.createIcons();
         
         document.addEventListener('keydown', (e) => {
